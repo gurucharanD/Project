@@ -1,0 +1,5 @@
+
+<h1>Week : {{week}}</h1>
+<ul *ngFor="let question of questions">
+  <li (click)="sendQuestion(question)">{{question}}</li>
+</ul>

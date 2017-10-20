@@ -1,0 +1,38 @@
+<h1 style="margin-left:4%;">Register User</h1>
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-sm-5" for="uname">Username</label>
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="uname" name="uname" placeholder="Enter Username">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="control-label col-sm-5" for="pwd">Password</label>
+    <div class="col-sm-2">
+      <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Enter password">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-5" for="year">Enter Year</label>
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="year" name="year" placeholder="Enter Year">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-5" for="secretKey">Enter the secretKey</label>
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="secretKey" name="secretKey" placeholder="Enter Your Hackerearth Secret Key">
+    </div>
+  </div>
+
+  <div class="form-group"> 
+    <div class="col-sm-offset-5 col-sm-2">
+      <button type="submit" class="btn btn-default" (click)="registerUser()">Register</button>
+    </div>
+  </div>
+</form>

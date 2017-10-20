@@ -1,0 +1,38 @@
+<h1 style="margin-left:4%;">Student Login</h1>
+
+<form class="form-horizontal">
+  <div class="form-group"><br><br><br><br>
+    <label class="control-label col-sm-5" for="uname">Username</label>
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="uname" name="uname" placeholder="Enter Username">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-5" for="year">Year</label>
+    <div class="col-sm-2">
+      <input type="text" class="form-control" [(ngModel)]="year" name="year" placeholder="Enter Year">
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <label class="control-label col-sm-5" for="pwd">Password</label>
+    <div class="col-sm-2">
+      <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Enter password">
+    </div>
+  </div>
+  <div class="form-group"> 
+    <div class="col-sm-offset-5 col-sm-2">
+      <div class="checkbox">
+        <label><input type="checkbox" [checked]="rememberMe" (change)="rememberMe = !rememberMe" name="rememberMe"> Remember me</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group"> 
+    <div class="col-sm-offset-5 col-sm-2">
+      <button type="submit" class="btn btn-default" (click)="checkLogin()">Login</button>
+    </div>
+  </div>
+</form>
