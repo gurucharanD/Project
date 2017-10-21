@@ -13,6 +13,7 @@ export class PostQuestionComponent implements OnInit {
   n:number
   selectedYear:number=1
   showTestInputBox:boolean=false;
+  questionName:string;
   arr=[]
   question:string
   week:number
@@ -32,6 +33,7 @@ export class PostQuestionComponent implements OnInit {
 
   submitQuestion(){
     var newQuestion = {
+        name:this.questionName,
         question:this.question,
         week:this.week,
         year:this.selectedYear,

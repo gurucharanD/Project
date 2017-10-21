@@ -13,5 +13,4 @@ export class QueServiceService {
 getSelectedQuestion(){
   return this.question;
 }
-
 }

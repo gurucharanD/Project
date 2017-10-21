@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-sm-6">
-    <h1>{{question}}</h1>
+    <h1>{{question.name}}</h1>
+    <h2>{{question.question}}</h2>
+    <h2>{{question.testCases}}</h2>
   </div>
   <div col="col-sm-6">
-    <textarea rows="30" cols="66" placeholder="Enter your code here"></textarea>  
+    <textarea rows="30" cols="66" placeholder="Enter your code here" [(ngModel)]="code"></textarea>  
     
-    <input type="submit" value="compile & run">
+    <input type="submit" value="compile & run" (click)="compile()">
     <input type="submit" value="submit">
   </div>
 </div>

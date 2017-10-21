@@ -12,7 +12,7 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" id="navigationBar">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -28,7 +28,7 @@
             <li *ngIf="!isLoggedIn"><a routerLink="/registerUser"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li *ngIf="!isLoggedIn"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Student Login</a></li>
             <li *ngIf="!isLoggedIn"><a routerLink="/facultyLogin"><span class="glyphicon glyphicon-log-in"></span> Faculty Login</a></li>
-            <li *ngIf="isLoggedIn" style="color:white;margin:1%;">Welcome {{user}}</li>
+            <li *ngIf="isLoggedIn" style="color:black;margin:1%;">Welcome {{user}}</li>
             <li *ngIf="isLoggedIn"><a style="color:aliceblue" (click)="logout()" class="btn btn-info btn-lg">
                 <span class="glyphicon glyphicon-log-out" style="color:aliceblue"></span> Log out
               </a></li>
@@ -37,6 +37,7 @@
       </div>
     </nav>
 <router-outlet></router-outlet>
+<app-copyrights></app-copyrights>
 
   </body>
 </html>

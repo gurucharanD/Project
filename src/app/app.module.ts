@@ -17,7 +17,8 @@ import { EditorComponent } from './editor/editor.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import {RegisterService} from './register.service';
 import { FacultyLoginComponent } from './faculty-login/faculty-login.component';
-import { PostQuestionComponent } from './post-question/post-question.component'
+import { PostQuestionComponent } from './post-question/post-question.component';
+import { CopyrightsComponent } from './copyrights/copyrights.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PostQuestionComponent } from './post-question/post-question.component'
     EditorComponent,
     RegisterUserComponent,
     FacultyLoginComponent,
-    PostQuestionComponent
+    PostQuestionComponent,
+    CopyrightsComponent
   ],
   imports: [
     HttpModule,

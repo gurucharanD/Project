@@ -3,6 +3,7 @@ const mongoose  =require('mongoose');
 const User = require('../models/User');
 const Faculty=require('../models/Faculty');
 const Question = require('../models/Question');
+var HackerEarthAPI = require('node-hackerearth');
 
 const router = express.Router();
 
@@ -22,14 +23,16 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
-router.get('/questions/:year',function(req,res){
+router.post('/getQuestions',function(req,res){
 console.log('get request for all videos');
-   Video.find({year:req.params.year})
+console.log(req.body.year);
+   Question.find({week:req.body.week,year:req.body.year})
    .exec(function(err,questions){
     if(err)
-    console.log("error retrieving videos "+err);
+    console.log("error retrieving questions "+err);
     else{
-        res.json(questions);
+        console.log(questions);
+        return res.json(questions);
     }
    });
 });
@@ -38,6 +41,7 @@ console.log('get request for all videos');
     router.post('/postQuestion',function(req,res){
         console.log('post a question');
         var newQuestion = new Question();
+        newQuestion.name=req.body.name;
         newQuestion.question=req.body.question;
         newQuestion.week = req.body.week;
         newQuestion.year=req.body.year;
@@ -53,6 +57,8 @@ console.log('get request for all videos');
             }
         })
     })
+
+    
 
     router.post('/registerUser',function(req,res){
         console.log("Register a user");
@@ -133,7 +139,42 @@ console.log('get request for all videos');
      });
  
 
-    router.get('/compile',function(req,res){
+    router.post('/compile',function(req,res){
+
+        var clientSecretKey = '5738edf2630fdac6283a93bd0d6202b97863ba2c';
+        
+       var api = new HackerEarthAPI(clientSecretKey);
+        
+    //    var data =`
+    //    #include<stdio.h>
+    //    int main()
+    //    {
+    //        int a=22;
+    //        int b=3;
+    //        printf("%d",a+b);
+    //    }
+    //    `
+        var datas=req.body.code;
+        var lang=req.body.lang;
+
+       console.log(datas+" "+lang);
+       
+       api.compile({ source: datas, lang: lang }, function (err, data) {
+         if (err) {
+           console.log(err.message);
+         } else {
+           console.log(JSON.stringify(data)); 
+         }
+       });
+        
+       api.run({ source: datas, lang: lang, time_limit: 1 }, function (err, data) {
+         if (err) {
+           console.log(err.message);
+         } else {
+             console.log("hi there");
+           console.log(JSON.stringify(data.run_status.output)); // Do something with your data 
+         }
+       });
 
     });
 

@@ -28,5 +28,19 @@ postQuestion(question){
   .map(res=>res.json()); 
 }
 
+getQuestions(data){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/getQuestions/',JSON.stringify(data),{headers:headers})
+  .map(res=>res.json());
+}
+
+compile(code){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/compile',JSON.stringify(code),{headers:headers})
+  .map(res=>res.json());
+}
+
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'angular2-cookie/core';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {QueServiceService} from '../que-service.service'
+import {LoginService} from '../login-service.service'
+import {Question} from '../Question'
 
 import { RouterModule, Routes,Router } from '@angular/router';
 
@@ -14,19 +16,25 @@ export class DashboardComponent implements OnInit {
 
   uname :string
   password:string
-  questions=["q1","12","q3"]
+  questions:Question[]
   selectedQuestion:object
   isReturned:boolean=false
+  selectedWeek:number
+  showQuestions:boolean=false
+  selectedYear:number
 
 
-  constructor(private _cookieService:CookieService,private queService:QueServiceService,private router:Router) { 
-    this._cookieService.put('uname',this.uname);
-    this._cookieService.put('password',this.password);
-
+  constructor(private queService:QueServiceService,private _loginService:LoginService,private router:Router) { 
+   
+  
   }
 
   ngOnInit() {
+      
   }
+
+
+
 
   sendQuestion(question){
   
@@ -34,6 +42,24 @@ export class DashboardComponent implements OnInit {
   console.log(question);
     this.router.navigate(['editor']);
   }
+
+  showQuestionForWeek(){
+    // this.selectedYear=parseInt(Cookie.get('uname'));
+    var data={
+      week:this.selectedWeek,
+      year:this.selectedYear
+    }
+    this._loginService.getQuestions(data)
+    .subscribe(res=>{
+        this.questions = res;
+        // console.log(this.questions);
+        this.showQuestions=true;
+    })
+ 
+   
+  }
+
+
   
 
 }
