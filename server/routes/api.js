@@ -1,7 +1,7 @@
 const express = require('express');
-const mongoose  =require('mongoose');
+const mongoose  = require('mongoose');
 const User = require('../models/User');
-const Faculty=require('../models/Faculty');
+const Faculty= require('../models/Faculty');
 const Question = require('../models/Question');
 var HackerEarthAPI = require('node-hackerearth');
 
@@ -93,7 +93,7 @@ console.log(req.body.year);
 
     router.post('/studentLogin',function(req,res){
        console.log("student login......");
-       
+       var response={}
      User.findOne({rollNumber:req.body.rollNumber,password:req.body.password,year:req.body.year},function(err,user){
             if(err) 
             { 
@@ -102,14 +102,12 @@ console.log(req.body.year);
             }
             if(!user){
                 console.log("invalid user");
-                res.json({'msg':'Invalid User','result':0});
-              return null;
-            
-  
+                res.json({msg:"Invalid User",result:0});
           }
+          else{
           console.log("Valid User");
-          res.json({'msg':'Login successful '+user.username,'result':1});
-        
+          res.json({msg:'Login successful',result:1});
+          }
             
         });
     });
@@ -157,26 +155,35 @@ console.log(req.body.year);
         var datas=req.body.code;
         var lang=req.body.lang;
 
-       console.log(datas+" "+lang);
        
        api.compile({ source: datas, lang: lang }, function (err, data) {
          if (err) {
            console.log(err.message);
          } else {
-           console.log(JSON.stringify(data)); 
+           console.log(JSON.stringify(data));
+           res.json(data); 
          }
        });
         
-       api.run({ source: datas, lang: lang, time_limit: 1 }, function (err, data) {
-         if (err) {
-           console.log(err.message);
-         } else {
-             console.log("hi there");
-           console.log(JSON.stringify(data.run_status.output)); // Do something with your data 
-         }
-       });
-
     });
+
+    router.post('/run',function(req,res){
+        var clientSecretKey = '5738edf2630fdac6283a93bd0d6202b97863ba2c';
+        
+       var api = new HackerEarthAPI(clientSecretKey);
+        var datas=req.body.code;
+        var lang=req.body.lang;
+        api.run({ source: datas, lang: lang, time_limit: 1 }, function (err, data) {
+            if (err) {
+              console.log(err.message);
+            } else {
+                console.log(data);
+              res.json(data); // Do something with your data 
+            }
+          });
+   
+
+    })
 
     
     router.get('/submit',function(req,res){

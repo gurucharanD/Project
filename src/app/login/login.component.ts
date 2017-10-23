@@ -10,17 +10,19 @@ import {LoginService} from '../login-service.service'
 })
 export class LoginComponent implements OnInit {
 
+  uname:string
+  password:string
+  isLoggedIn:boolean=false
+  year:number
   constructor(private router:Router,private loginService:LoginService) {
     
   }
 
   ngOnInit() {
+    if(Cookie.get("isLoggedIn")=="1")
+    this.router.navigate(['dashboard']);
   }
 
-  uname:string
-  password:string
-  isLoggedIn:boolean=false
-  year:number
 
   checkLogin(){
     // validate the user here
@@ -40,21 +42,21 @@ export class LoginComponent implements OnInit {
        
        this.loginService.isValidUser(user)
        .subscribe(res => {
-         console.log(res);
+          //console.log(res);
          if(res.result==1){
              this.isLoggedIn=true;
           
         Cookie.set('username', this.uname);
         Cookie.set('isLoggedIn',"1");
         Cookie.set('year',this.year+"");
-            window.location.reload();
-         this.router.navigate(['dashboard']);
+        window.location.reload();
+        alert("LOGIN SUCCESSFUL");
+        this.router.navigate(['dashboard']);
            }
          else{
            this.isLoggedIn=false;
            alert("Invalid USERNAME/PASSWORD/YEAR!");
-    
-         }
+       }
        })
      }
 

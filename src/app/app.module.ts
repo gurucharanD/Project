@@ -8,6 +8,7 @@ import {QueServiceService} from './que-service.service'
 import {LoginService} from './login-service.service'
 import { HttpModule } from '@angular/http';
 import {Http} from '@angular/http'
+import {UserAccountService} from './user-account.service'
 
 
 import { AppComponent } from './app.component';
@@ -37,7 +38,7 @@ import { CopyrightsComponent } from './copyrights/copyrights.component'
     FormsModule,
     routes
   ],
-  providers: [CookieService,QueServiceService,LoginService,RegisterService],
+  providers: [UserAccountService,CookieService,QueServiceService,LoginService,RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

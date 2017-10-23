@@ -1,0 +1,21 @@
+#params{
+ margin-left:5%;
+ margin-bottom: 3%;    
+}
+#button{
+    margin-top:2%;
+}
+
+#left{
+    border: 1px black solid;
+    padding: 2%;
+    background-color: skyblue;
+    box-shadow: 3px 3px 1px 1px;
+}
+#total{
+    margin: 3%;
+}
+
+#right{
+    margin-left: 2%;
+}

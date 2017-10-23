@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import {Router} from '@angular/router' 
+import {UserAccountService} from './user-account.service'
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   user:string =Cookie.get('username');
   title = 'app';
 
-  constructor(private router:Router){
+  constructor(private router:Router,private _userAccount:UserAccountService){
 
   }
 

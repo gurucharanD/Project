@@ -1,0 +1,22 @@
+#editor{
+    margin: 2%;
+}
+
+#editorPart{
+
+}
+textarea{
+    resize: none;
+}
+
+#questionPart{
+    border: 1px solid black;
+    margin: 2%;
+    box-shadow: 2px 1px 1px;
+}
+
+#output{
+    margin: 2%;
+    padding: 2%;
+    border: 2px solid black;
+}
