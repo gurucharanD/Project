@@ -4,7 +4,7 @@ const path = require('path');
 
 const api= require('./server/routes/api');
 
-const port = 4000;
+const port = 3000;
 
 const app = express();
 
@@ -21,4 +21,4 @@ app.get('*',(req,res) =>{
 
 app.listen(port,function(){
 console.log("listening on port :"+port);
-});
+});300
