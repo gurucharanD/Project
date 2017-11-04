@@ -14,10 +14,12 @@ export class PostQuestionComponent implements OnInit {
   selectedYear:number=1
   showTestInputBox:boolean=false;
   questionName:string;
-  arr=[]
+  input=[]
+  output=[]
   question:string
   week:number
-  a=[]
+  arr=[]
+
 
   constructor(private _loginService:LoginService,private router:Router) { }
 
@@ -27,7 +29,7 @@ export class PostQuestionComponent implements OnInit {
 
   testCases(){
     for(var i=0;i<this.n;i++)
-    this.arr[i]=i;
+    this.arr[i]=i;this.arr[i]=i;
     this.showTestInputBox=true;
   }
 
@@ -37,7 +39,8 @@ export class PostQuestionComponent implements OnInit {
         question:this.question,
         week:this.week,
         year:this.selectedYear,
-        testCases:this.a
+        input:this.input,
+        output:this.output
     }
     this._loginService.postQuestion(newQuestion)
     .subscribe(res => {

@@ -3,11 +3,13 @@ const mongoose  = require('mongoose');
 const User = require('../models/User');
 const Faculty= require('../models/Faculty');
 const Question = require('../models/Question');
-var HackerEarthAPI = require('node-hackerearth');
+var compile_run=require('compile-run');
+
 
 const router = express.Router();
 
-const db = "mongodb://raman:raman@ds111885.mlab.com:11885/code_vardhaman"; 
+const db = "mongodb://localhost"; 
+
 mongoose.Promise = global.Promise;
 
     mongoose.connect(db,(err)=>{
@@ -23,9 +25,11 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
+
+
+
 router.post('/getQuestions',function(req,res){
-console.log('get request for all videos');
-console.log(req.body.year);
+
    Question.find({week:req.body.week,year:req.body.year})
    .exec(function(err,questions){
     if(err)
@@ -39,13 +43,14 @@ console.log(req.body.year);
 
 
     router.post('/postQuestion',function(req,res){
-        console.log('post a question');
+        console.log('posting a question');
         var newQuestion = new Question();
         newQuestion.name=req.body.name;
         newQuestion.question=req.body.question;
         newQuestion.week = req.body.week;
         newQuestion.year=req.body.year;
-        newQuestion.testCases=req.body.testCases;
+        newQuestion.input=req.body.input;
+        newQuestion.output=req.body.output;
         newQuestion.save(function(err,insertedQuestion){
             if(err){
                 console.log('error saving Question');
@@ -115,6 +120,15 @@ console.log(req.body.year);
 
     router.post('/facultyLogin',function(req,res){
         console.log("Faculty login......");
+        var newFaculty=new Faculty();
+        newFaculty.userName="1";
+        newFaculty.password="1";
+        newFaculty.save(function(err,insertedFaculty){
+            if(err)
+            throw err;
+            else
+            console.log(insertedFaculty);
+        })
         
       Faculty.findOne({userName:req.body.userName,password:req.body.password},function(err,user){
              if(err) 
@@ -137,53 +151,41 @@ console.log(req.body.year);
      });
  
 
-    router.post('/compile',function(req,res){
-
-        var clientSecretKey = '5738edf2630fdac6283a93bd0d6202b97863ba2c';
-        
-       var api = new HackerEarthAPI(clientSecretKey);
-        
-    //    var data =`
-    //    #include<stdio.h>
-    //    int main()
-    //    {
-    //        int a=22;
-    //        int b=3;
-    //        printf("%d",a+b);
-    //    }
-    //    `
-        var datas=req.body.code;
-        var lang=req.body.lang;
-
-       
-       api.compile({ source: datas, lang: lang }, function (err, data) {
-         if (err) {
-           console.log(err.message);
-         } else {
-           console.log(JSON.stringify(data));
-           res.json(data); 
-         }
-       });
-        
-    });
-
+  
     router.post('/run',function(req,res){
-        var clientSecretKey = '5738edf2630fdac6283a93bd0d6202b97863ba2c';
-        
-       var api = new HackerEarthAPI(clientSecretKey);
-        var datas=req.body.code;
-        var lang=req.body.lang;
-        api.run({ source: datas, lang: lang, time_limit: 1 }, function (err, data) {
-            if (err) {
-              console.log(err.message);
-            } else {
-                console.log(data);
-              res.json(data); // Do something with your data 
-            }
-          });
-   
+     
 
-    })
+        var code=req.body.code;
+        var lang=req.body.lang;
+        var input=req.body.input;
+        switch(lang){
+            case 1: var result=python(code,input);
+                console.log(result);
+                res.json(result);
+                break;
+        } 
+        
+     });
+
+      function python(code,input){
+         var result=[];
+         for(let i=0;i<input.length;i++){
+        compile_run.runPython(code, input, function (stdout, stderr, err) {
+            if(!err){
+                    console.log(stdout);
+                    result.push(stdout);
+             }
+             else{
+                console.log(err);
+                return err;
+             }
+           
+
+         });
+        }
+       return result;
+        
+     }
 
     
     router.get('/submit',function(req,res){

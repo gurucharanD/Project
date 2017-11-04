@@ -3,7 +3,8 @@
   <div class="col-sm-6" id="questionPart">
     <h1>{{question.name}}</h1>
     <p>{{question.question}}</p>
-    <h4>{{question.testCases}}</h4>
+    <h4>{{question.input}}</h4>
+    <h4>{{question.output}}</h4>
   </div>
   <div col="col-sm-6" id="editorPart">
     <textarea rows="30" cols="86" placeholder="Enter your code here" [(ngModel)]="code" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}">
@@ -11,23 +12,17 @@
     <div style="margin-left:55%;margin-top:2%;">  
       <label for="language">language</label>
       <select name="lang" id="lang" [(ngModel)]="lang">
-        <option value="PYTHON">PYTHON</option>
-        <option value="JAVA">JAVA</option>
-        <option value="C">C</option>
+        <option value="1">PYTHON</option>
+        <option value="2">JAVA</option>
+        <option value="3">C</option>
       </select>
-    <input type="submit" value="Compile" (click)="compile()" class="btn btn-primary">
     <input type="submit" value="Run" (click)="run()" class="btn btn-primary">
         <input type="submit" value="submit" class="btn btn-danger">
   </div>
   </div>
 </div>
 <div class="row" id="output">
-  <h2>Compile status :</h2><h1 style="background-color:green;color:white">{{compileStatus}}</h1>
-  <h2>Run Status : </h2>
-  <h1>Memory Used:</h1><h1 style="background-color:green;color:white">{{memoryUsed}}</h1>
-  <h1>Output :</h1><h1 style="background-color:green;color:white">{{output}}</h1>
-  <h1>Status Details: {{statusDetails}}</h1>
-  <h1>Error : <h1 style="background-color:red;color:white">{{error}}</h1></h1>
+  
 </div>
 </div>
 

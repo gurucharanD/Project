@@ -13,7 +13,7 @@ export class RegisterUserComponent implements OnInit {
 
   uname : string 
   password: string
-  secretKey:string
+  section:string
   year: number
   isRegistered:boolean
 
@@ -33,14 +33,14 @@ export class RegisterUserComponent implements OnInit {
       var user={
          rollNumber:this.uname,
          password:this.password,
-         secretKey:this.secretKey,
+         section:this.section,
          year:this.year
        };
        
        
        this._registerService.registerUser(user)
        .subscribe(res => {
-         if(res.result==1){
+         if(res){
              this.isRegistered=true;
               alert("Registration Successful");
          this.router.navigate(['home']);

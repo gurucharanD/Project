@@ -12,11 +12,13 @@ import { LoginService } from "../login-service.service";
 export class EditorComponent implements OnInit {
 
   code:string
-  question:object
+ 
   lang:string
   compileStatus:string
- 
+ input:number[]
   runStatus:string
+question:object
+langOpt=0;
 
   //output params
 
@@ -35,36 +37,22 @@ export class EditorComponent implements OnInit {
   ngOnInit() {
   }
 
-  compile(){
-    var code={
-      code:this.code,
-      lang:this.lang
-    }
-    if(this.code!=""&&this.lang!=""){
-    this._loginService.compile(code)
-    .subscribe(res=>{
-        console.log(res);
-        this.compileStatus=res.compile_status;
-    });
-  }
-  else{
-    alert("CODE / LANGUAGE cannot be empty");
-  }
-}
 
 run(){
+  this.input=this.queService.getInput();
+
+  if(this.code!=""&&this.lang!=""){
+
   var code={
     code:this.code,
-    lang:this.lang
+    lang:parseInt(this.lang),
+    input:this.input
   }
-  if(this.code!=""&&this.lang!=""){
+ 
+
   this._loginService.run(code)
   .subscribe(res=>{
-      console.log(res);
-      this.output=res.run_status.output;
-      this.memoryUsed=res.run_status.memory_used;
-      this.statusDetails=res.run_status.status_detail;
-      this.error=res.run_status.stderr;
+      console.log("output "+res.result);
   });
 }
 else{
@@ -73,3 +61,4 @@ else{
 }
 
 }
+
