@@ -1,5 +1,5 @@
+<div id="questionEditor" style="border: 2px solid black;padding:4%;">
 <form>
-  <div id="questionEditor">
     <div class="row">
       <h2>Select Year : </h2>
       <select name="selectedYear" [(ngModel)]="selectedYear">
@@ -32,12 +32,13 @@
       </select>
     </div>
   <div class="row">
-      <h1>Post your Question</h1>
-      <input type="text" name="questionName" [(ngModel)]="questionName">
+      <h1>Post your Question Name</h1>
+      <textarea name="questionName" cols="90" rows="2" [(ngModel)]="questionName" placeholder="Problem Statement"></textarea>
+      
       <h2>Your question must include :
         1. Problem 2.Sample Input&Output
       </h2>
-      <textarea name="problem_stmt" cols="90" rows="10" [(ngModel)]="question"></textarea>
+      <textarea name="problem_stmt" cols="90" rows="10" [(ngModel)]="question" placeholder="Problem"></textarea>
   </div>
   <div class="row">
     <h2>Enter the number of test cases for input :</h2>
@@ -59,6 +60,7 @@
         <button type="submit" class="btn btn-default" (click)="submitQuestion()">Submit Question</button>
       </div>
     </div>
-    </div>
+ 
 
 </form>
+   </div>

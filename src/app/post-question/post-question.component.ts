@@ -29,11 +29,13 @@ export class PostQuestionComponent implements OnInit {
 
   testCases(){
     for(var i=0;i<this.n;i++)
-    this.arr[i]=i;this.arr[i]=i;
+    this.arr[i]=i;
     this.showTestInputBox=true;
   }
 
   submitQuestion(){
+    let val=alert("Are you Sure you want to submit ?");
+    if(val){
     var newQuestion = {
         name:this.questionName,
         question:this.question,
@@ -45,15 +47,11 @@ export class PostQuestionComponent implements OnInit {
     this._loginService.postQuestion(newQuestion)
     .subscribe(res => {
       
-  if(res){
-    console.log(res.msg);
-    alert("question posted successfully");
-  }
-  else{
-    alert("Failed to post the question");
-  }
-      
+    alert(res.msg);
+    
+ 
     })
   }
 
+}
 }

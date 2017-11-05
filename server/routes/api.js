@@ -35,7 +35,7 @@ router.post('/getQuestions',function(req,res){
     if(err)
     console.log("error retrieving questions "+err);
     else{
-        console.log(questions);
+      //  console.log(questions);
         return res.json(questions);
     }
    });
@@ -57,8 +57,8 @@ router.post('/getQuestions',function(req,res){
 
             }
             else{
-                
-                return {'msg':'Question posted successfully','result':1}
+               res.json({msg:"Question Posted Successfully"}); 
+               
             }
         })
     })
@@ -158,34 +158,46 @@ router.post('/getQuestions',function(req,res){
         var code=req.body.code;
         var lang=req.body.lang;
         var input=req.body.input;
+        var result=[];
         switch(lang){
-            case 1: var result=python(code,input);
-                console.log(result);
+            case 1:
+
+            calculate(code,input)
+            .then(result => {
+                // use results here
+                console.log("Reslutv "+result)
                 res.json(result);
-                break;
+            })
+            .catch(err => console.log("Error : "+err))
+          
+               
         } 
         
      });
 
-      function python(code,input){
-         var result=[];
-         for(let i=0;i<input.length;i++){
-        compile_run.runPython(code, input, function (stdout, stderr, err) {
-            if(!err){
-                    console.log(stdout);
-                    result.push(stdout);
-             }
-             else{
-                console.log(err);
-                return err;
-             }
-           
+     function calculate(code,input){
+        var promiseArray = input.map(inp => {
+            return new Promise((resolve, reject) => {
+                compile_run.runPython(code, inp, function (stdout, stderr, err) {
+                    if(!err){
+                        console.log("STDOUT "+stdout);
+                        console.log("stderr "+stderr);
+                        if(stderr)
+                        resolve(stderr);
+                        else
+                        resolve(stdout);
+                    }
+                    else{
+                       
+                        reject(err)
+                    }
+                })
+            })
+        })
+        return Promise.all(promiseArray)
+    }
 
-         });
-        }
-       return result;
-        
-     }
+     
 
     
     router.get('/submit',function(req,res){

@@ -16,16 +16,15 @@ export class EditorComponent implements OnInit {
   lang:string
   compileStatus:string
  input:number[]
+ output:number[]
   runStatus:string
 question:object
 langOpt=0;
+err
 
-  //output params
-
-  memoryUsed:string
-  output:string
-  error:string
-  statusDetails:string
+outputResult:boolean = true
+showOutput:boolean=false;
+  
 
 
 
@@ -40,6 +39,7 @@ langOpt=0;
 
 run(){
   this.input=this.queService.getInput();
+  this.output=this.queService.getOutput();
 
   if(this.code!=""&&this.lang!=""){
 
@@ -52,7 +52,20 @@ run(){
 
   this._loginService.run(code)
   .subscribe(res=>{
-      console.log("output "+res.result);
+
+      var result = res;
+       console.log(res);
+      this.err=res;
+      for(let i=0;i<res.length;i++)
+      {
+        if(parseInt(res[i])!=this.output[i]){
+          this.outputResult=false;
+          break;
+        }
+      }
+
+      this.showOutput=true;
+
   });
 }
 else{

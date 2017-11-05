@@ -21,8 +21,11 @@
   </div>
   </div>
 </div>
-<div class="row" id="output">
+<div class="row" id="output" *ngIf="showOutput">
+  <h1 *ngIf="outputResult" style="color:green">Output : CORRECT RESULT</h1>
+  <h1 *ngIf="!outputResult" style="color:red">Output : INCORRECT RESULT</h1>
   
+  <h2 *ngIf="!outputResult" style="color:red"><h1>Your Output: </h1>{{err}}</h2>
 </div>
 </div>
 
