@@ -29,7 +29,7 @@ export class RegisterUserComponent implements OnInit {
       alert("Username/Password cannot be empty");
     }
     else{
-      alert(this.uname+" "+this.password+" ");
+      
       var user={
          rollNumber:this.uname,
          password:this.password,
@@ -40,15 +40,9 @@ export class RegisterUserComponent implements OnInit {
        
        this._registerService.registerUser(user)
        .subscribe(res => {
-         if(res){
-             this.isRegistered=true;
-              alert("Registration Successful");
-         this.router.navigate(['home']);
-           }
-         else{
-           this.isRegistered=false;
-           alert("Registration Unsuccessful");
-         }
+
+        alert(res.msg);
+        this.router.navigate(['home']);
        })
      
   }

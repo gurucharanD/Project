@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   selectedWeek:number
   showQuestions:boolean=false
   selectedYear:number
+  noQuestions:boolean=false
 
 
   constructor(private queService:QueServiceService,private _loginService:LoginService,private router:Router) { 
@@ -47,12 +48,13 @@ export class DashboardComponent implements OnInit {
     // this.selectedYear=parseInt(Cookie.get('uname'));
     var data={
       week:this.selectedWeek,
-      year:this.selectedYear
+      year:Cookie.get("year")
     }
     this._loginService.getQuestions(data)
     .subscribe(res=>{
         this.questions = res;
-        // console.log(this.questions);
+        if(this.questions.length==0)
+        this.noQuestions=true;
         this.showQuestions=true;
     })
  

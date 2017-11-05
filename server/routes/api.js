@@ -57,7 +57,8 @@ router.post('/getQuestions',function(req,res){
 
             }
             else{
-               res.json({msg:"Question Posted Successfully"}); 
+                console.log("posted successfully");
+               res.json({'msg':'Question Posted Successfully'}); 
                
             }
         })
@@ -77,17 +78,17 @@ router.post('/getQuestions',function(req,res){
         User.find({rollNumber:newUser.rollNumber},function(err,users){
             if(users.length){
                 console.log("User already exists");
-                    return {"msg":"User already exists","result":0};
+                     res.json({'msg':'User already exists'});
             }
             else{
                 newUser.save(function(err,insertedUser){
                     if(err){
                         console.log("error Saving user "+err);
-                        return {msg:"Registration unsuccessful",result:0};
+                        res.json({'msg':'Registration unsuccessful'});
                     }
                     else{
                         console.log("Registration successful");
-                        return {msg:"Registration Successful",result:1}
+                        res.json({'msg':'Registration Successful'});
                     }
         
                 })

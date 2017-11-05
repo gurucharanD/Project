@@ -34,8 +34,7 @@ export class PostQuestionComponent implements OnInit {
   }
 
   submitQuestion(){
-    let val=alert("Are you Sure you want to submit ?");
-    if(val){
+    alert("Are you Sure you want to submit ?");
     var newQuestion = {
         name:this.questionName,
         question:this.question,
@@ -47,11 +46,15 @@ export class PostQuestionComponent implements OnInit {
     this._loginService.postQuestion(newQuestion)
     .subscribe(res => {
       
-    alert(res.msg);
-    
- 
+  if(res){
+    console.log(res.msg);
+    alert("question posted successfully");
+  }
+  else{
+    alert("Failed to post the question");
+  }
+      
     })
   }
 
-}
 }

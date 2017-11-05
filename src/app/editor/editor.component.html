@@ -3,8 +3,7 @@
   <div class="col-sm-6" id="questionPart">
     <h1>{{question.name}}</h1>
     <p>{{question.question}}</p>
-    <h4>{{question.input}}</h4>
-    <h4>{{question.output}}</h4>
+   
   </div>
   <div col="col-sm-6" id="editorPart">
     <textarea rows="30" cols="86" placeholder="Enter your code here" [(ngModel)]="code" onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}">
