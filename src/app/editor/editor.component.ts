@@ -24,6 +24,7 @@ err
 
 outputResult:boolean = true
 showOutput:boolean=false;
+sampleResult=false;
   
 
 
@@ -35,6 +36,44 @@ showOutput:boolean=false;
 
   ngOnInit() {
   }
+
+
+compile(){
+  this.input=this.queService.getInput();
+  this.output=this.queService.getOutput();
+
+  if(this.code!=""&&this.lang!=""){
+
+  var code={
+    code:this.code,
+    lang:parseInt(this.lang),
+    input:this.input
+  }
+ 
+
+  this._loginService.compile(code)
+  .subscribe(res=>{
+
+      var result = res;
+       console.log(res);
+      this.err=res;
+    
+      if(parseInt(res)!=this.output[0]){
+        this.outputResult=false;
+      }
+      else{
+        this.sampleResult=true;
+      }
+
+      this.showOutput=true;
+
+  });
+}
+else{
+  alert("CODE / LANGUAGE cannot be empty");
+}
+}
+
 
 
 run(){
@@ -63,6 +102,8 @@ run(){
           break;
         }
       }
+      if(this.outputResult)
+      this.sampleResult=false;
 
       this.showOutput=true;
 

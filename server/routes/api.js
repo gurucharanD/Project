@@ -152,6 +152,31 @@ router.post('/getQuestions',function(req,res){
      });
  
 
+     router.post('/compile',function(req,res){
+        var code=req.body.code;
+        var lang=req.body.lang;
+        var input=req.body.input;
+        var inp=input[0];
+        var compile_run = require('compile-run');
+        compile_run.runPython(code, inp, function (stdout, stderr, err) {
+           if(!err){
+                    if(stderr)
+                    res.json(stderr);
+                    else
+                    res.json(stdout);
+            }
+            else{
+            console.log(err);
+            res.json(err);
+            }
+        });
+    });
+
+
+    
+
+
+
   
     router.post('/run',function(req,res){
      
@@ -165,8 +190,6 @@ router.post('/getQuestions',function(req,res){
 
             calculate(code,input)
             .then(result => {
-                // use results here
-                console.log("Reslutv "+result)
                 res.json(result);
             })
             .catch(err => console.log("Error : "+err))
@@ -181,8 +204,6 @@ router.post('/getQuestions',function(req,res){
             return new Promise((resolve, reject) => {
                 compile_run.runPython(code, inp, function (stdout, stderr, err) {
                     if(!err){
-                        console.log("STDOUT "+stdout);
-                        console.log("stderr "+stderr);
                         if(stderr)
                         resolve(stderr);
                         else
