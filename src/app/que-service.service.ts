@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class QueServiceService {
 
   question:object
-  input:number[]
-  output:number[]
+  input:string[]
+  output:string[]
 
   constructor() { }
 

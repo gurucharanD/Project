@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../login-service.service'
 import {Router} from '@angular/router'
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-post-question',
@@ -41,7 +42,8 @@ export class PostQuestionComponent implements OnInit {
         week:this.week,
         year:this.selectedYear,
         input:this.input,
-        output:this.output
+        output:this.output,
+        postedBy:Cookie.get('username')
     }
     this._loginService.postQuestion(newQuestion)
     .subscribe(res => {

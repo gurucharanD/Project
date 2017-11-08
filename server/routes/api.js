@@ -51,6 +51,7 @@ router.post('/getQuestions',function(req,res){
         newQuestion.year=req.body.year;
         newQuestion.input=req.body.input;
         newQuestion.output=req.body.output;
+        newQuestion.postedBy=req.body.postedBy;
         newQuestion.save(function(err,insertedQuestion){
             if(err){
                 console.log('error saving Question');

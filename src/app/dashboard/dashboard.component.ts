@@ -55,6 +55,8 @@ export class DashboardComponent implements OnInit {
         this.questions = res;
         if(this.questions.length==0)
         this.noQuestions=true;
+        else
+        this.noQuestions=false;
         this.showQuestions=true;
     })
  

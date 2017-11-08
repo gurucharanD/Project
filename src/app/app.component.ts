@@ -20,11 +20,15 @@ export class AppComponent {
   }
 
   logout(){
-    Cookie.delete('username');
-    Cookie.delete('isLoggedIn');
-    Cookie.delete('year');
-     window.location.reload();
-    this.router.navigate(['login']);
+    var res=confirm("Any unsaved changes will be lost");
+    if(res){
+      Cookie.delete('username');
+      Cookie.delete('isLoggedIn');
+      Cookie.delete('year');
+       window.location.reload();
+      this.router.navigate(['login']);
+    }
+    
   }
 
 

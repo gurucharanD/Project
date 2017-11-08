@@ -1,3 +1,4 @@
+
 <div id="total">
 <div class="row">
   <div class="col-sm-3" id="left">
@@ -25,10 +26,15 @@
    </div>
   </div>
   <div class="col-sm-6" id="right">
-    <h1 style="color:blue">Week : {{selectedWeek}}</h1>
+    <!-- <h1 style="color:blue">Week : {{selectedWeek}}</h1> -->
     <div class="list-group">
     <ul  *ngIf="showQuestions">
-      <li *ngFor="let question of questions"  class="list-group-item active">{{question.name}} <input type="submit" class="btn btn-danger" (click)="sendQuestion(question)" value="Solve" style="margin-left:2%;"></li>
+      <li style="margin:2%;" *ngFor="let question of questions"  class="list-group-item active"><h3>{{question.name}}</h3>
+        <h5>Posted By : {{question.postedBy}}</h5>
+        <input type="submit" class="btn btn-danger" (click)="sendQuestion(question)" value="Solve" style="margin-left:2%;">
+      </li> 
+       
+        
     </ul>
     <h3 *ngIf="noQuestions" style="border:2px solid black">No Questions to Show. Please contact your faculty </h3>
     </div>

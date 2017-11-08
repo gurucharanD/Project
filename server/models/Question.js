@@ -6,7 +6,8 @@
         year:Number,
         question:String,
         input:Array,
-        output:Array
+        output:Array,
+        postedBy:String
     });
 
     module.exports  =  mongoose.model('question',questionSchema,'questions');
