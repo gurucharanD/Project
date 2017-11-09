@@ -45,11 +45,13 @@ export class LoginComponent implements OnInit {
           //console.log(res);
          if(res.result==1){
              this.isLoggedIn=true;
-          
-        Cookie.set('username', this.uname);
+          var userDetails=res.userDetails;
+          //console.log(userDetails);
+        Cookie.set('username', userDetails.rollNumber);
         Cookie.set('isLoggedIn',"1");
-        Cookie.set('year',this.year+"");
-        window.location.reload();
+        Cookie.set('year',userDetails.year);
+          Cookie.set('section',userDetails.section);
+         window.location.reload();
         alert("LOGIN SUCCESSFUL");
         this.router.navigate(['dashboard']);
            }

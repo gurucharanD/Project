@@ -5,6 +5,7 @@ import * as jsPDF from 'jspdf';
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Subscription} from "rxjs";
 import { RouterModule, Routes,Router } from '@angular/router';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 
 @Component({
@@ -16,8 +17,10 @@ import { RouterModule, Routes,Router } from '@angular/router';
 })
 export class EditorComponent implements OnInit {
 
-  
-  code:string
+  showScore=false
+  score:number = 0
+  wrong:number =0
+  code:string=""
  tick:string
   lang:string
   compileStatus:string
@@ -44,7 +47,7 @@ timeOfProblem=60;
   }
 
   ngOnInit() {
-    let timer = TimerObservable.create(1000, 1000);
+    let timer = TimerObservable.create(500, 1000);
     this.subscription = timer.subscribe(t => {
       var date = new Date(null);
       if(60-t<=0)
@@ -67,7 +70,7 @@ timeOfProblem=60;
 
 
   download() {
-    
+    console.log("calling");
             var doc = new jsPDF();
             doc.text(20, 20,this.code);
             doc.save('code.pdf');
@@ -114,6 +117,68 @@ else{
 
 
 
+submitScore(){
+  alert("Are you Sure You want to submit?");
+ var data={
+  userName:Cookie.get('username')
+ };
+  var marks={
+    questionName:this.question['name'],
+    marksScored:this.score,
+    isAttempted:true,
+  }
+  this._loginService.getStudentMarks(data)
+  .subscribe(res=>{
+   // console.log(res);
+
+    if(res==undefined)
+    {
+      var updatemarks={
+        userName:Cookie.get('username'),
+        year:Cookie.get('year'),
+        section:Cookie.get('section'),
+        week:Cookie.get('week'),
+        marks:[marks]
+      };
+      this._loginService.saveMarks(updatemarks)
+      .subscribe(res=>{
+        alert(res.msg);
+      });
+      
+    }
+    else{
+    var usermarks=[];
+    usermarks=res.marks;
+    usermarks.push(marks);
+    console.log(usermarks);
+        var Updatemarks={
+    userName:Cookie.get('username'),
+    year:Cookie.get('year'),
+    section:Cookie.get('section'),
+    week:Cookie.get('week'),
+    marks:usermarks
+  };
+
+
+  this._loginService.submit(Updatemarks)
+  .subscribe(res=>{
+    console.log(res.marks);
+    alert(res.msg);
+
+    this.router.navigate(['dashboard']);
+  })  
+}
+    });
+  
+  }
+  
+
+
+
+
+
+
+
 run(){
   this.input=this.queService.getInput();
   this.output=this.queService.getOutput();
@@ -132,16 +197,19 @@ run(){
       this.err=res;
       for(let i=0;i<res.length;i++)
       {
-        console.log(typeof res[i].toString());
-      console.log(typeof this.output[i]);
-      console.log(res);
-      console.log(this.output[i].toString());
-      console.log(res[i].toString().trim()==this.output[i].toString());
+      //   console.log(typeof res[i].toString());
+      // console.log(typeof this.output[i]);
+      // console.log(res);
+      // console.log(this.output[i].toString());
+      // console.log(res[i].toString().trim()==this.output[i].toString());
         if(res[i].toString().trim()!=this.output[i].toString()){
+          this.wrong++;
           this.outputResult=false;
           break;
         }
       }
+      this.score=(res.length-this.wrong)*5/res.length;
+      this.showScore=true;
       if(this.outputResult)
       this.sampleResult=false;
       this.showOutput=true;

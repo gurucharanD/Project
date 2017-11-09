@@ -1,3 +1,5 @@
 #loginForm{
     border: 1px solid black;
+    box-shadow: 2px 2px 2px 2px;
+    background-color: #f1f1f1;
 }

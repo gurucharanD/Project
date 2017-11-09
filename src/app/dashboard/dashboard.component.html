@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-sm-3" id="left">
     <h2>Select Week : </h2>
-    <select name="selectedYear" [(ngModel)]="selectedWeek">
+    <select name="selectedWeek" [(ngModel)]="selectedWeek">
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -29,7 +29,7 @@
     <!-- <h1 style="color:blue">Week : {{selectedWeek}}</h1> -->
     <div class="list-group">
     <ul  *ngIf="showQuestions">
-      <li style="margin:2%;" *ngFor="let question of questions"  class="list-group-item active"><h3>{{question.name}}</h3>
+      <li style="margin:2%;" *ngFor="let question of displayQuestions"  class="list-group-item active"><h3>{{question.name}}</h3>
         <h5>Posted By : {{question.postedBy}}</h5>
         <input type="submit" class="btn btn-danger" (click)="sendQuestion(question)" value="Solve" style="margin-left:2%;">
       </li> 

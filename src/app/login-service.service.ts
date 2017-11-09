@@ -35,6 +35,13 @@ getQuestions(data){
   .map(res=>res.json());
 }
 
+getAnsweredQuestions(data){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/getAnsweredQuestions',JSON.stringify(data),{headers:headers})
+  .map(res=>res.json());
+}
+
 run(code){
   var headers = new Headers();
   headers.append('Content-Type','application/json');
@@ -46,6 +53,34 @@ compile(code){
   var headers = new Headers();
   headers.append('Content-Type','application/json');
   return this.http.post('api/compile',JSON.stringify(code),{headers:headers})
+  .map(res=>res.json());
+}
+
+submit(marks){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/submit',JSON.stringify(marks),{headers:headers})
+  .map(res=>res.json());
+}
+
+getMarks(data){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/getMarks',JSON.stringify(data),{headers:headers})
+  .map(res=>res.json());
+}
+
+getStudentMarks(data){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/getStudentMarks',JSON.stringify(data),{headers:headers})
+  .map(res=>res.json());
+}
+
+saveMarks(marks){
+  var headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.post('api/saveMarks',JSON.stringify(marks),{headers:headers})
   .map(res=>res.json());
 }
 

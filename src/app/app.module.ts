@@ -19,7 +19,10 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import {RegisterService} from './register.service';
 import { FacultyLoginComponent } from './faculty-login/faculty-login.component';
 import { PostQuestionComponent } from './post-question/post-question.component';
-import { CopyrightsComponent } from './copyrights/copyrights.component'
+import { CopyrightsComponent } from './copyrights/copyrights.component';
+import { FacultyMenuComponent } from './faculty-menu/faculty-menu.component';
+import { KeysPipe } from './keys.pipe';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { CopyrightsComponent } from './copyrights/copyrights.component'
     RegisterUserComponent,
     FacultyLoginComponent,
     PostQuestionComponent,
-    CopyrightsComponent
+    CopyrightsComponent,
+    FacultyMenuComponent,
+    KeysPipe
   ],
   imports: [
     HttpModule,

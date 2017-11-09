@@ -13,6 +13,8 @@ export class FacultyLoginComponent implements OnInit {
   constructor(private router:Router,private loginService:LoginService) { }
 
   ngOnInit() {
+    if(Cookie.get("isLoggedIn")=="1")
+    this.router.navigate(['postQuestion']);
   }
 
 

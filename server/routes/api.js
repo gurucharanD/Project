@@ -2,8 +2,14 @@ const express = require('express');
 const mongoose  = require('mongoose');
 const User = require('../models/User');
 const Faculty= require('../models/Faculty');
+const Marks=require('../models/Marks');
 const Question = require('../models/Question');
 var compile_run=require('compile-run');
+const fs = require('fs');
+const path = require('path');
+
+const directory = 'code/python';
+
 
 
 const router = express.Router();
@@ -26,6 +32,19 @@ mongoose.Promise = global.Promise;
 const app = express();
 
 
+router.post('/getAnsweredQuestions',function(req,res){
+    Marks.find({username:req.body.userName})
+    .exec(function(err,questions){
+        if(err)
+        console.log("error retrieving questions"+err);
+        else{
+            return res.json(questions);
+        }
+    });
+    
+
+});
+
 
 
 router.post('/getQuestions',function(req,res){
@@ -35,7 +54,7 @@ router.post('/getQuestions',function(req,res){
     if(err)
     console.log("error retrieving questions "+err);
     else{
-      //  console.log(questions);
+        console.log(questions);
         return res.json(questions);
     }
    });
@@ -55,7 +74,7 @@ router.post('/getQuestions',function(req,res){
         newQuestion.save(function(err,insertedQuestion){
             if(err){
                 console.log('error saving Question');
-
+                res.json({'msg':'Failed to post question'});
             }
             else{
                 console.log("posted successfully");
@@ -75,6 +94,7 @@ router.post('/getQuestions',function(req,res){
         newUser.password=req.body.password;
         newUser.secretKey=req.body.secretKey;
         newUser.year = req.body.year;
+        newUser.section=req.body.section;
         
         User.find({rollNumber:newUser.rollNumber},function(err,users){
             if(users.length){
@@ -113,7 +133,7 @@ router.post('/getQuestions',function(req,res){
           }
           else{
           console.log("Valid User");
-          res.json({msg:'Login successful',result:1});
+          res.json({msg:'Login successful',result:1,userDetails:user});
           }
             
         });
@@ -158,9 +178,24 @@ router.post('/getQuestions',function(req,res){
         var lang=req.body.lang;
         var input=req.body.input;
         var inp=input[0];
-        var compile_run = require('compile-run');
+       
         compile_run.runPython(code, inp, function (stdout, stderr, err) {
            if(!err){
+            fs.readdir(directory, (err, files) => {
+                if (err) {
+                    console.log("error files"+err);
+                }
+                else{
+              
+                for (const file of files) {
+                  fs.unlink(path.join(directory, file), err => {
+                    if (err){
+                    console.log(err);      
+                    }  
+                  });
+                }
+            }
+              });
                     if(stderr)
                     res.json(stderr);
                     else
@@ -191,6 +226,21 @@ router.post('/getQuestions',function(req,res){
 
             calculate(code,input)
             .then(result => {
+                fs.readdir(directory, (err, files) => {
+                    if (err) {
+                        console.log("error files"+err);
+                    }
+                    else{
+                  
+                    for (const file of files) {
+                      fs.unlink(path.join(directory, file), err => {
+                        if (err){
+                        console.log(err);      
+                        }  
+                      });
+                    }
+                }
+                  });
                 res.json(result);
             })
             .catch(err => console.log("Error : "+err))
@@ -223,9 +273,73 @@ router.post('/getQuestions',function(req,res){
      
 
     
-    router.get('/submit',function(req,res){
+     router.post('/saveMarks',function(req,res){
+        var studentMarks = new Marks();
+        studentMarks.username=req.body.userName;
+        studentMarks.year=req.body.year;
+        studentMarks.section=req.body.section;
+        studentMarks.week = req.body.week;
+        studentMarks.marks=req.body.marks;
+        studentMarks.save(function(err,marks){
+            if(err)
+            res.json({'msg':'Failed to Upload Marks'});
+            else{
+                res.json({'msg':'Marks uploaded Successfully'});
+            }
+        })
 
     });
+
+    router.post('/submit/',function(req,res){
+        console.log("update marks");
+        var username=req.body.userName;
+        var marks=req.body.marks;
+        Marks.findOneAndUpdate({username},
+        {
+            $set:{marks:marks}
+        },
+            {new:true},
+                function(err,updatedMarks){
+                    if(err)
+                    res.send("ERROR UPDATING Marks");
+                    else
+                    return res.json({'msg':'submitted successfully','marks':updatedMarks});
+            }
+        );
+    });
+
+
+    router.post('/getMarks',function(req,res){
+        var year=req.body.year;
+        var week=req.body.week;
+        var section=req.body.section;
+        Marks.find({year,week,section})
+        .exec(function(err,records){
+            if(err)
+            console.log("error retrieving records"+err);
+            else
+            res.json(records);
+        });
+    });
+
+    
+    router.post('/getStudentMarks',function(req,res){
+        var username=req.body.userName;
+        Marks.findOne({username})
+        .exec(function(err,records){
+            if(err)
+            console.log("error retrieving records"+err);
+            else{
+                console.log(records)
+                res.json(records);
+            }
+
+
+        });
+    });
+
+
+
 
 
 

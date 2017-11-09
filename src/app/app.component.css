@@ -1,4 +1,22 @@
-#navigationBar{
-    background-color: black;
-    color: black;
+
+.navbar-inverse {
+    background-color: rgb(9, 2, 82);
+    border-color: #E7E7E7;
+    
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+.navbar-inverse .navbar-brand {
+    color: white;
+    
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: rgb(10, 121, 165);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color:rgb(16, 177, 252);
 }

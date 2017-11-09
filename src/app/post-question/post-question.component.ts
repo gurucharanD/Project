@@ -19,6 +19,7 @@ export class PostQuestionComponent implements OnInit {
   output=[]
   question:string
   week:number
+  showDownloadMarks:boolean=false
   arr=[]
 
 
@@ -57,6 +58,10 @@ export class PostQuestionComponent implements OnInit {
   }
       
     })
+  }
+
+  showMarksMenu(){
+    this.showDownloadMarks=!this.showDownloadMarks;
   }
 
 }
