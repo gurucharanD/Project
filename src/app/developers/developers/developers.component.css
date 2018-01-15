@@ -1,0 +1,12 @@
+p{
+    padding:10%;
+}
+
+
+.developers {
+    padding:8%;
+    display: flex;
+  }
+  .developers > div {
+    flex: 1; /*grow*/
+  }

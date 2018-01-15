@@ -22,9 +22,11 @@ mongoose.Promise = global.Promise;
             if(err){
                 console.log("error "+err);
             }
-                else{
-                    console.log("connected to mongoose successfully at 3000");
-                }
+            
+            else
+            {
+                console.log("connected to mongoose successfully at 3000");
+            }
 
     });
 
@@ -49,7 +51,7 @@ router.post('/getAnsweredQuestions',function(req,res){
 
 router.post('/getQuestions',function(req,res){
 
-   Question.find({week:req.body.week,year:req.body.year})
+   Question.find({week:req.body.week,year:req.body.year,section:req.body.section})
    .exec(function(err,questions){
     if(err)
     console.log("error retrieving questions "+err);
@@ -69,6 +71,7 @@ router.post('/getQuestions',function(req,res){
         newQuestion.week = req.body.week;
         newQuestion.year=req.body.year;
         newQuestion.input=req.body.input;
+        newQuestion.section=req.body.section;
         newQuestion.output=req.body.output;
         newQuestion.postedBy=req.body.postedBy;
         newQuestion.save(function(err,insertedQuestion){
@@ -142,15 +145,15 @@ router.post('/getQuestions',function(req,res){
 
     router.post('/facultyLogin',function(req,res){
         console.log("Faculty login......");
-        var newFaculty=new Faculty();
-        newFaculty.userName="1";
-        newFaculty.password="1";
-        newFaculty.save(function(err,insertedFaculty){
-            if(err)
-            throw err;
-            else
-            console.log(insertedFaculty);
-        })
+        // var newFaculty=new Faculty();
+        // newFaculty.userName="1";
+        // newFaculty.password="1";
+        // newFaculty.save(function(err,insertedFaculty){
+        //     if(err)
+        //     throw err;
+        //     else
+        //     console.log(insertedFaculty);
+        // })
         
       Faculty.findOne({userName:req.body.userName,password:req.body.password},function(err,user){
              if(err) 

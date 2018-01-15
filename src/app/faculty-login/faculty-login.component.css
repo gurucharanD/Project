@@ -1,5 +1,9 @@
-#loginForm{
-    border: 1px solid black;
-    box-shadow: 2px 2px 2px 2px;
-    background-color: #f1f1f1;
-}
+.div{
+    padding:10%;
+    padding-left: 30%;
+    background-color: #f1f1ff;
+   }
+   
+   button{
+       margin:2%;  
+   }

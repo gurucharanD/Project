@@ -11,7 +11,7 @@ import {UserAccountService} from './user-account.service'
 
 export class AppComponent {
   
-  isLoggedIn:boolean= Cookie.get('isLoggedIn')=="1"?true:false;
+  isLoggedIn:boolean= Cookie.get('isStudentLoggedIn')=="1"||Cookie.get('isFacultyLoggedIn')=="1"?true:false;
   user:string =Cookie.get('username');
   title = 'app';
 
@@ -23,7 +23,8 @@ export class AppComponent {
     var res=confirm("Any unsaved changes will be lost");
     if(res){
       Cookie.delete('username');
-      Cookie.delete('isLoggedIn');
+      Cookie.delete('isStudentLoggedIn');
+      Cookie.delete('isFacultyLoggedIn');
       Cookie.delete('year');
        window.location.reload();
       this.router.navigate(['login']);

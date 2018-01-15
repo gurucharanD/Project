@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,38 +13,42 @@ import {UserAccountService} from './user-account.service'
 
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { EditorComponent } from './editor/editor.component';
-import { RegisterUserComponent } from './register-user/register-user.component';
 import {RegisterService} from './register.service';
-import { FacultyLoginComponent } from './faculty-login/faculty-login.component';
 import { PostQuestionComponent } from './post-question/post-question.component';
 import { CopyrightsComponent } from './copyrights/copyrights.component';
 import { FacultyMenuComponent } from './faculty-menu/faculty-menu.component';
 import { KeysPipe } from './keys.pipe';
+import { ShowQuestionsFacultyComponent } from './show-questions-faculty/show-questions-faculty.component';
+
+import {MdlButtonModule,MdlLayoutModule,MdlScreenSizeService} from '@angular-mdl/core';
+import { HomeComponent } from './home/home.component'
+
+
 
 
 @NgModule({
   declarations: [
+
     AppComponent,
-    LoginComponent,
-    DashboardComponent,
     EditorComponent,
-    RegisterUserComponent,
-    FacultyLoginComponent,
-    PostQuestionComponent,
+   PostQuestionComponent,
     CopyrightsComponent,
     FacultyMenuComponent,
-    KeysPipe
+    KeysPipe,
+    ShowQuestionsFacultyComponent,
+    HomeComponent
+  
   ],
   imports: [
     HttpModule,
     BrowserModule,
     FormsModule,
-    routes
+    routes,
+    MdlLayoutModule,
   ],
-  providers: [UserAccountService,CookieService,QueServiceService,LoginService,RegisterService],
+  providers: [AuthGuard,UserAccountService,CookieService,QueServiceService,LoginService,RegisterService,MdlScreenSizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,43 +1,37 @@
-<h1 style="margin-left:4%;text-shadow:2px 2px 2px;">Register User</h1>
+<div class="div">
+  <mdl-card mdl-shadow="16">
+    <mdl-card-title>
+      <h2 mdl-card-title-text>Register User</h2>
+    </mdl-card-title>
+    <mdl-card-supporting-text>
+      <form [formGroup]="form">
 
-<div id="registerForm">
-<div class="row">
-    <div class="col-sm-3"  style="margin-left:2%;margin-right:2%;">
-        <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/62495-200.png" width="100%" height="70%" alt="code">
-      </div>
-<div class="col-sm-8" id="rightSide">
-<form class="form-horizontal">
-  <div class="form-group">
-    <label class="control-label col-sm-5" for="uname">Username</label>
-    <div class="col-sm-2">
-      <input type="text" class="form-control" [(ngModel)]="uname" name="uname" placeholder="Enter Username">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-5" for="pwd">Password</label>
-    <div class="col-sm-2">
-      <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Enter password">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label col-sm-5" for="year">Enter Year</label>
-    <div class="col-sm-2">
-      <input type="text" class="form-control" [(ngModel)]="year" name="year" placeholder="Enter Year">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="control-label col-sm-5" for="section">Enter Section</label>
-    <div class="col-sm-2">
-      <input type="text" class="form-control" [(ngModel)]="section" name="section" placeholder="Enter Section">
-    </div>
-  </div>
-
-  <div class="form-group"> 
-    <div class="col-sm-offset-5 col-sm-2">
-      <button type="submit" class="btn btn-default" (click)="registerUser()">Register</button>
-    </div>
-  </div>
- 
-</form>
+        <mdl-textfield label="username" type="text" formControlName="username" floating-label></mdl-textfield>
+        <mdl-textfield label="password" type="password" formControlName="password" floating-label></mdl-textfield>
+        <div>
+          <p>Year</p>
+          <mdl-radio name="year" value="1" formControlName="year" mdl-ripple>1</mdl-radio>
+          <mdl-radio name="year" value="2" formControlName="year" mdl-ripple>2</mdl-radio>
+          <mdl-radio name="year" value="3" formControlName="year" mdl-ripple>3</mdl-radio>
+          <mdl-radio name="year" value="4" formControlName="year" mdl-ripple>4</mdl-radio>
+        </div>
+        <br>
+        <div>
+            <p>Section</p>
+            <mdl-radio name="section" value="1" formControlName="section" mdl-ripple>A</mdl-radio>
+            <mdl-radio name="section" value="2" formControlName="section" mdl-ripple>B</mdl-radio>
+            <mdl-radio name="section" value="3" formControlName="section" mdl-ripple>C</mdl-radio>
+            <mdl-radio name="section" value="4" formControlName="section" mdl-ripple>D</mdl-radio>
+          </div>
+       <br> 
+       
+        <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple type="submit">
+          Register
+        </button>
+        <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple type="reset" (click)="checkLogin()">
+          Reset
+        </button>
+      </form>
+    </mdl-card-supporting-text>
+  </mdl-card>
+</div>

@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
 
   showQuestionForWeek(){
     // this.selectedYear=parseInt(Cookie.get('uname'));
-
+    this.displayQuestions=[];
 
     var query={
       userName:Cookie.get('username')
@@ -67,8 +67,10 @@ export class DashboardComponent implements OnInit {
 getQuestion(){
   var data={
     week:this.selectedWeek,
-    year:Cookie.get("year")
+    year:Cookie.get("year"),
+    section:Cookie.get("section")
   }
+  console.log(data);
   this._loginService.getQuestions(data)
   .subscribe(res=>{
    this.questions=res;

@@ -1,45 +1,42 @@
-<html>
-  <head>
-        <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  </head>
-  <body>
-
-    <nav class="navbar navbar-inverse" id="navigationBar">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
-          </button>
-          <h1><a class="navbar-brand" routerLink="/login">CodeArena</a></h1>
-          
+      <div class="demo-container" mdl-shadow="2">
+          <mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed>
+             <mdl-layout-header>
+                <mdl-layout-header-row>
+                   <mdl-layout-title><a routerLink="home" style="color:white">Code Arena</a></mdl-layout-title>
+                   <mdl-layout-spacer></mdl-layout-spacer>
+                   <!-- Navigation. We hide it in small screens. -->
+                   <nav class="mdl-navigation mdl-layout--large-screen-only">
+                      <a *ngIf="!isLoggedIn" class="mdl-navigation__link" routerLink="/login">Student Login</a>
+                      <a *ngIf="!isLoggedIn" class="mdl-navigation__link" routerLink="/facultyLogin">Faculty Login</a>
+                      <a *ngIf="!isLoggedIn" class="mdl-navigation__link" routerLink="/registerUser">Register Student</a>
+                      <a class="mdl-navigation__link" routerLink="/developers">Developers</a>
+                      <a *ngIf="isLoggedIn" class="mdl-navigation__link" >Welcome {{user}}</a>
+                      <a *ngIf="isLoggedIn" class="mdl-navigation__link" (click)="logout()">Log out</a>
+                   
+                    </nav>
+                </mdl-layout-header-row>
+             </mdl-layout-header>
+             <mdl-layout-drawer>
+                <mdl-layout-title><a routerLink="home" style="color:black">Code Arena</a></mdl-layout-title>
+                <nav class="mdl-navigation">
+                    <a *ngIf="!isLoggedIn" class="mdl-navigation__link" routerLink="/login">Student Login</a>
+                      <a *ngIf="!isLoggedIn" class="mdl-navigation__link" routerLink="/facultyLogin">Faculty Login</a>
+                      <a *ngIf="!isLoggedIn" class="mdl-navigation__link" routerLink="/registerUser">Register Student</a>
+                      <a *ngIf="isLoggedIn" class="mdl-navigation__link" (click)="logout()">Log out</a>
+                      <a class="mdl-navigation__link" routerLink="/developers">Developers</a>
+                   </nav>
+             </mdl-layout-drawer>
+             <mdl-layout-content>
+                <!-- Your content goes here -->
+             </mdl-layout-content>
+          </mdl-layout>
+          <div id="container">
+            <router-outlet></router-outlet>
+           
+         </div>
+         <app-copyrights></app-copyrights>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-        
-          <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="!isLoggedIn"><a routerLink="/registerUser"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li *ngIf="!isLoggedIn"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Student Login</a></li>
-            <li *ngIf="!isLoggedIn"><a routerLink="/facultyLogin"><span class="glyphicon glyphicon-log-in"></span> Faculty Login</a></li>
-            <li *ngIf="isLoggedIn" style="color:white;margin:1%;">Welcome {{user}}</li>
-            <li *ngIf="isLoggedIn"><button style="color:aliceblue" (click)="logout()" class="btn btn-info btn-lg">
-                <span class="glyphicon glyphicon-log-out" style="color:aliceblue"></span> Log out
-            </button></li>
-            
-          </ul>
-        </div>
-      </div>
-    </nav>
-<router-outlet></router-outlet>
-<app-copyrights></app-copyrights>
+      
 
-  </body>
-</html>
+

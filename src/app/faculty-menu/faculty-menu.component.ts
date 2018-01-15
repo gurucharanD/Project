@@ -1,7 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {Student} from '../Student'
 import {LoginService} from '../login-service.service'
-import * as jsPDF from 'jspdf';
+import * as jsPDF from 'jspdf-autotable';
 
 @Component({
   selector: 'app-faculty-menu',
@@ -41,11 +41,15 @@ export class FacultyMenuComponent implements OnInit {
   download(){
     var columns=['UserName','Marks'];
     var rows=[];
-    this.students.forEach(element => {
-      console.log(element);
-      
-    });
-    var doc = new jsPDF();
+    for(let i=0;i<this.students.length;i++)
+    {
+      rows.push([this.students['username']]);
+    }
+   
+    var doc = new jsPDF('p', 'pt');
+    doc.autoTable(columns, rows);
+
+    doc.save('table.pdf');
     
    // doc.save('code.pdf');
   }

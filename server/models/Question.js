@@ -4,6 +4,7 @@
         name:String,
         week:Number,
         year:Number,
+        section:String,
         question:String,
         input:Array,
         output:Array,

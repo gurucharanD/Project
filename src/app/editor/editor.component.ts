@@ -208,6 +208,7 @@ run(){
           break;
         }
       }
+      console.log(res);
       this.score=(res.length-this.wrong)*5/res.length;
       this.showScore=true;
       if(this.outputResult)

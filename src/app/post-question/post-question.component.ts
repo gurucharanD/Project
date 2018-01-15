@@ -12,7 +12,8 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class PostQuestionComponent implements OnInit {
 
   n:number
-  selectedYear:number=1
+  selectedYear:number=1;
+  selectedSection:string="";
   showTestInputBox:boolean=false;
   questionName:string;
   input=[]
@@ -26,6 +27,11 @@ export class PostQuestionComponent implements OnInit {
   constructor(private _loginService:LoginService,private router:Router) { }
 
   ngOnInit() {
+  }
+
+  //Function which shows current questions for a faculty
+  showExistingQuestions(){
+    
   }
 
 
@@ -42,6 +48,7 @@ export class PostQuestionComponent implements OnInit {
         question:this.question,
         week:this.week,
         year:this.selectedYear,
+        section:this.selectedSection,
         input:this.input,
         output:this.output,
         postedBy:Cookie.get('username')

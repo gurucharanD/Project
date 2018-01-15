@@ -8,16 +8,22 @@ import {PostQuestionComponent} from './post-question/post-question.component'
 import {LoginComponent} from './login/login.component'
 import {DashboardComponent} from './dashboard/dashboard.component'
 import {AppComponent} from './app.component'
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth.guard';
+
 
 
 export const router:Routes =[
-    {path:'',redirectTo:'login',pathMatch:'full'},
-    {path:'registerUser',component:RegisterUserComponent},
-    {path:'login',component:LoginComponent},
-    {path:'facultyLogin',component:FacultyLoginComponent},
+    {path:'',component:HomeComponent,pathMatch:'full'},
+    {path:'registerUser',loadChildren:'./register-user/register.module#RegisterModule'},
+    {path:'home',component:HomeComponent},
+    {path:'login',loadChildren:'./login/login-module.module#LoginModuleModule'},
+    {path:'facultyLogin',loadChildren:'./faculty-login/faculty-login.module#FacultyLoginModule'},
     {path:'postQuestion',component:PostQuestionComponent},
     {path:'editor',component:EditorComponent},
-    {path:'dashboard',component:DashboardComponent}
+    {path:'dashboard',canActivate:[AuthGuard],loadChildren:'./dashboard/dashboard.module#DashboardModule'},
+    {path:'developers',loadChildren:'./developers/developers.module#DevelopersModule'}
+
 ];
 
 export const routes:ModuleWithProviders = RouterModule.forRoot(router);
