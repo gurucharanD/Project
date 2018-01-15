@@ -24,6 +24,7 @@ import { ShowQuestionsFacultyComponent } from './show-questions-faculty/show-que
 
 import {MdlButtonModule,MdlLayoutModule,MdlScreenSizeService} from '@angular-mdl/core';
 import { HomeComponent } from './home/home.component'
+import { AuthenticationService } from './authentication.service';
 
 
 
@@ -46,9 +47,9 @@ import { HomeComponent } from './home/home.component'
     BrowserModule,
     FormsModule,
     routes,
-    MdlLayoutModule,
+    MdlLayoutModule
   ],
-  providers: [AuthGuard,UserAccountService,CookieService,QueServiceService,LoginService,RegisterService,MdlScreenSizeService],
+  providers: [AuthenticationService,AuthGuard,UserAccountService,CookieService,QueServiceService,LoginService,RegisterService,MdlScreenSizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

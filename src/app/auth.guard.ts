@@ -3,18 +3,23 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './authentication.service';
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private route:Router){}
   
-  canActivate(): boolean {
-     let res = Cookie.get('isStudentLoggedIn')=="1";
-      if(!res)
-     {
-      alert("User is not logged In");
-      this.route.navigate(['login']);
-     }
-     return res; 
+  
+  constructor(private route:Router,private auth:AuthenticationService){
   }
+
+
+  canActivate(next:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean{
+    let res=this.auth.getUserState();
+    if(!res){
+    alert("User Not Logged In");
+      this.route.navigate(['login']);
+  }
+  return this.auth.getUserState();
+}
 }

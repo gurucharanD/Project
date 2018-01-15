@@ -20,7 +20,7 @@ export const router:Routes =[
     {path:'login',loadChildren:'./login/login-module.module#LoginModuleModule'},
     {path:'facultyLogin',loadChildren:'./faculty-login/faculty-login.module#FacultyLoginModule'},
     {path:'postQuestion',component:PostQuestionComponent},
-    {path:'editor',component:EditorComponent},
+    {path:'editor',canActivate:[AuthGuard],component:EditorComponent},
     {path:'dashboard',canActivate:[AuthGuard],loadChildren:'./dashboard/dashboard.module#DashboardModule'},
     {path:'developers',loadChildren:'./developers/developers.module#DevelopersModule'}
 

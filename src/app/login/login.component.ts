@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes,Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   pwd:string
   isLoggedIn:boolean=false
   year:number
-  constructor(private router:Router,private loginService:LoginService,private fb:FormBuilder) {
+  constructor(private router:Router,private loginService:LoginService,private fb:FormBuilder,private auth:AuthenticationService) {
     
   }
 
@@ -65,14 +66,11 @@ export class LoginComponent implements OnInit {
           //console.log(res);
          if(res.result==1){
              this.isLoggedIn=true;
-          var userDetails=res.userDetails;
-          //console.log(userDetails);
-        Cookie.set('username', userDetails.rollNumber);
-        Cookie.set('isStudentLoggedIn',"1");
-        Cookie.set('year',userDetails.year);
-          Cookie.set('section',userDetails.section);
-         window.location.reload();
-        alert("LOGIN SUCCESSFUL");
+              this.auth.setStudentLogin(true);
+              var userDetails=res.userDetails;
+            this.auth.setUserName(userDetails.rollNumber);
+            this.auth.setUserYear(userDetails.year);
+            this.auth.setSection(userDetails.section);
         this.router.navigate(['dashboard']);
            }
          else{
